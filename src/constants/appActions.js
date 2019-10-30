@@ -1,0 +1,5 @@
+const SAMPLE_ACTION = 'SAMPLE_ACTION';
+
+export {
+    SAMPLE_ACTION
+}
