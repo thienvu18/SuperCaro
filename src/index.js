@@ -7,7 +7,7 @@ import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
-import Main from './components/main';
+import App from './app';
 import reducers from './reducers';
 
 const store = createStore(reducers, applyMiddleware(thunk, logger));
@@ -15,7 +15,7 @@ const store = createStore(reducers, applyMiddleware(thunk, logger));
 ReactDOM.render(
 	<Provider store={store}>
 		<CssBaseline />
-		<Main />
+		<App />
 	</Provider>,
 	document.getElementById('container')
 );
