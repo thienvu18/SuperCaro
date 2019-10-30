@@ -12,7 +12,7 @@ import {
 import { Settings, PeopleAlt } from '@material-ui/icons';
 
 import { Copyright } from './components';
-import { Register, Login } from './views';
+import { Register, Login, UpdateInfo } from './views';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -54,7 +54,7 @@ function App() {
 					</Grid>
 				</Toolbar>
 			</AppBar>
-			<Login />
+			<UpdateInfo />
 			<Box mt={8}>
 				<Copyright />
 			</Box>

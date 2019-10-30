@@ -10,11 +10,13 @@ import {
 	Link,
 	Grid,
 	Typography,
+	Fab,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { LockOutlined } from '@material-ui/icons';
+import 'font-awesome/css/font-awesome.min.css';
 
-import { PasswordInput } from '../components';
+import { PasswordInput, GoogleIcon } from '../components';
 
 const useStyles = makeStyles(theme => ({
 	'@global': {
@@ -38,6 +40,9 @@ const useStyles = makeStyles(theme => ({
 	},
 	submit: {
 		margin: theme.spacing(3, 0, 2),
+	},
+	social: {
+		margin: theme.spacing(1),
 	},
 }));
 
@@ -76,15 +81,49 @@ export default function Login() {
 						control={<Checkbox value="remember" color="primary" />}
 						label="Remember me"
 					/>
-					<Button
-						type="submit"
-						fullWidth
-						variant="contained"
-						color="primary"
-						className={classes.submit}
+					<Grid
+						container
+						justify="space-between"
+						spacing={3}
+						alignItems="center"
 					>
-						Login
-					</Button>
+						<Grid item xs>
+							<Button
+								fullWidth
+								variant="contained"
+								color="primary"
+								className={classes.submit}
+							>
+								Login
+							</Button>
+						</Grid>
+						<Grid item></Grid>
+						<Grid item>
+							<Fab
+								size="small"
+								className={classes.social}
+								style={{ backgroundColor: '#FFFFFF' }}
+							>
+								<i
+									className="fa fa-google"
+									style={{ color: 'blue' }}
+									aria-hidden="true"
+								></i>
+								{/* <GoogleIcon /> */}
+							</Fab>
+							<Fab
+								size="small"
+								className={classes.social}
+								style={{ backgroundColor: '#4267B2' }}
+							>
+								<i
+									className="fa fa-facebook"
+									style={{ color: '#FFFFFF' }}
+									aria-hidden="true"
+								></i>
+							</Fab>
+						</Grid>
+					</Grid>
 					<Grid container>
 						<Grid item xs>
 							<Link href="#" variant="body2">
