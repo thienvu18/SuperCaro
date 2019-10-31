@@ -43,6 +43,7 @@ const useStyles = makeStyles(theme => ({
 	},
 	social: {
 		margin: theme.spacing(1),
+		boxShadow: 'none',
 	},
 }));
 
@@ -102,14 +103,14 @@ export default function Login() {
 							<Fab
 								size="small"
 								className={classes.social}
-								style={{ backgroundColor: '#FFFFFF' }}
+								style={{ backgroundColor: '#FFFFFF00' }}
 							>
-								<i
+								{/* <i
 									className="fa fa-google"
 									style={{ color: 'blue' }}
 									aria-hidden="true"
-								></i>
-								{/* <GoogleIcon /> */}
+								></i> */}
+								<GoogleIcon />
 							</Fab>
 							<Fab
 								size="small"
