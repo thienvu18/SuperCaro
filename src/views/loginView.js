@@ -16,7 +16,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import { LockOutlined } from '@material-ui/icons';
 import 'font-awesome/css/font-awesome.min.css';
 
-import { PasswordInput, GoogleIcon } from '../components';
+import { PasswordInput, GoogleIcon, FacebookIcon } from '../components';
 
 const useStyles = makeStyles(theme => ({
 	'@global': {
@@ -105,11 +105,6 @@ export default function Login() {
 								className={classes.social}
 								style={{ backgroundColor: '#FFFFFF00' }}
 							>
-								{/* <i
-									className="fa fa-google"
-									style={{ color: 'blue' }}
-									aria-hidden="true"
-								></i> */}
 								<GoogleIcon />
 							</Fab>
 							<Fab
@@ -117,11 +112,7 @@ export default function Login() {
 								className={classes.social}
 								style={{ backgroundColor: '#4267B2' }}
 							>
-								<i
-									className="fa fa-facebook"
-									style={{ color: '#FFFFFF' }}
-									aria-hidden="true"
-								></i>
+								<FacebookIcon />
 							</Fab>
 						</Grid>
 					</Grid>
