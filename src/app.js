@@ -8,7 +8,7 @@ import {
 import { Box } from '@material-ui/core';
 
 import { Copyright, Header } from './components';
-import { Register, Login, UpdateInfo } from './views';
+import { Register, Login, UpdateInfo, Game, GameSelect } from './views';
 
 const theme = createMuiTheme({
 	palette: {
@@ -33,7 +33,7 @@ function App() {
 		<MuiThemeProvider theme={theme}>
 			<div className={classes.root}>
 				<Header />
-				<Login />
+				<GameSelect />
 				<Box mt={8}>
 					<Copyright />
 				</Box>
