@@ -1,11 +1,11 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
 	Avatar,
 	Button,
 	CssBaseline,
 	Container,
 	TextField,
-	Link,
 	Grid,
 	Typography,
 } from '@material-ui/core';
@@ -13,6 +13,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { LockOutlined } from '@material-ui/icons';
 
 import { PasswordInput } from '../components';
+import { Routes } from '../constants';
+import { NavigationActions } from '../actions';
 
 const useStyles = makeStyles(theme => ({
 	'@global': {
@@ -39,8 +41,10 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-export default function Register() {
+function Register(props) {
 	const classes = useStyles();
+
+	const { onClick } = props;
 
 	return (
 		<Container component="main" maxWidth="xs">
@@ -96,9 +100,13 @@ export default function Register() {
 					</Button>
 					<Grid container justify="flex-end">
 						<Grid item>
-							<Link href="#" variant="body2">
+							<Typography
+								variant="body2"
+								style={{ color: 'blue', cursor: 'pointer' }}
+								onClick={() => onClick(Routes.LOGIN)}
+							>
 								Already have an account? Login here
-							</Link>
+							</Typography>
 						</Grid>
 					</Grid>
 				</form>
@@ -106,3 +114,15 @@ export default function Register() {
 		</Container>
 	);
 }
+
+const mapDispatchToProps = dispatch => {
+	return {
+		onClick: route =>
+			dispatch(NavigationActions.onNavigationButtonClick(route)),
+	};
+};
+
+export default connect(
+	null,
+	mapDispatchToProps
+)(Register);

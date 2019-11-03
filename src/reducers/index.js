@@ -1,8 +1,12 @@
 import { combineReducers } from 'redux';
-import GameReducer from './gameReducers';
+import GameReducers from './gameReducers';
+import NavigationReducers from './navigationReducers';
+import AuthReducers from './authReducer';
 
 const reducers = combineReducers({
-	game: GameReducer,
+	game: GameReducers,
+	route: NavigationReducers,
+	auth: AuthReducers,
 });
 
 export default reducers;

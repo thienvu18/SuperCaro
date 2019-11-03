@@ -17,6 +17,8 @@ import {
 	ButtonGroup,
 	Button,
 } from '@material-ui/core';
+import { NavigationActions } from '../actions';
+import { Routes } from '../constants';
 
 const useStyles = makeStyles(theme => ({
 	toolbar: {
@@ -28,7 +30,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function AvatarMenu(props) {
-	const { user } = props;
+	const { user, onClick } = props;
 	const [open, setOpen] = React.useState(false);
 	const anchorRef = React.useRef(null);
 
@@ -94,10 +96,20 @@ function AvatarMenu(props) {
 									autoFocusItem={open}
 									onKeyDown={handleListKeyDown}
 								>
-									<MenuItem onClick={handleClose}>
+									<MenuItem
+										onClick={event => {
+											handleClose(event);
+											onClick(Routes.UPDATE_INFO);
+										}}
+									>
 										Profile
 									</MenuItem>
-									<MenuItem onClick={handleClose}>
+									<MenuItem
+										onClick={event => {
+											handleClose(event);
+											onClick(Routes.LOGOUT);
+										}}
+									>
 										Logout
 									</MenuItem>
 								</MenuList>
@@ -110,43 +122,59 @@ function AvatarMenu(props) {
 	);
 }
 
-function LoginRegister(props) {
+function LoginRegister({ onClick }) {
 	return (
 		<ButtonGroup>
-			<Button>Login</Button>
-			<Button>Register</Button>
+			<Button onClick={() => onClick(Routes.LOGIN)}>Login</Button>
+			<Button onClick={() => onClick(Routes.REGISTER)}>Register</Button>
 		</ButtonGroup>
 	);
 }
 
 function Header(props) {
-	const { user } = props;
-
 	const classes = useStyles();
+
+	const { user, onClick } = props;
 
 	return (
 		<AppBar position="static">
 			<Toolbar className={classes.toolbar}>
 				<Grid container direction="row" justify="flex-start">
-					<Typography align="center" variant="h5">
+					<Typography
+						align="center"
+						variant="h5"
+						style={{ cursor: 'pointer' }}
+						onClick={() => onClick(Routes.HOME)}
+					>
 						CARO GAME
 					</Typography>
 				</Grid>
 				<Grid container direction="row" justify="flex-end">
-					{user ? <AvatarMenu user={user} /> : <LoginRegister />}
+					{user ? (
+						<AvatarMenu user={user} onClick={onClick} />
+					) : (
+						<LoginRegister onClick={onClick} />
+					)}
 				</Grid>
 			</Toolbar>
 		</AppBar>
 	);
 }
 
-const mapStateToProps = ({ header }) => {
+const mapStateToProps = ({ auth }) => {
 	return {
-		user: {
-			avatar:
-				'http://www.gravatar.com/avatar/7da6eed3125ce42e7490c5bf9f7566a8?s=100&d=mm',
-		},
+		user: auth.user,
 	};
 };
 
-export default connect(mapStateToProps)(Header);
+const mapDispatchToProps = dispatch => {
+	return {
+		onClick: route =>
+			dispatch(NavigationActions.onNavigationButtonClick(route)),
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Header);

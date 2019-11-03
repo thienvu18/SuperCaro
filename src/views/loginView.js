@@ -1,4 +1,5 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import {
 	Avatar,
 	Button,
@@ -7,16 +8,16 @@ import {
 	FormControlLabel,
 	TextField,
 	Checkbox,
-	Link,
 	Grid,
 	Typography,
 	Fab,
 } from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 import { LockOutlined } from '@material-ui/icons';
-import 'font-awesome/css/font-awesome.min.css';
 
 import { PasswordInput, GoogleIcon, FacebookIcon } from '../components';
+import { Routes } from '../constants';
+import { NavigationActions } from '../actions';
 
 const useStyles = makeStyles(theme => ({
 	'@global': {
@@ -47,8 +48,10 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-export default function Login() {
+function Login(props) {
 	const classes = useStyles();
+
+	const { onClick } = props;
 
 	return (
 		<Container component="main" maxWidth="xs">
@@ -117,15 +120,14 @@ export default function Login() {
 						</Grid>
 					</Grid>
 					<Grid container>
-						<Grid item xs>
-							<Link href="#" variant="body2">
-								Forgot password?
-							</Link>
-						</Grid>
 						<Grid item>
-							<Link href="#" variant="body2">
+							<Typography
+								variant="body2"
+								style={{ color: 'blue', cursor: 'pointer' }}
+								onClick={() => onClick(Routes.REGISTER)}
+							>
 								{"Don't have an account? Sign Up"}
-							</Link>
+							</Typography>
 						</Grid>
 					</Grid>
 				</form>
@@ -133,3 +135,15 @@ export default function Login() {
 		</Container>
 	);
 }
+
+const mapDispatchToProps = dispatch => {
+	return {
+		onClick: route =>
+			dispatch(NavigationActions.onNavigationButtonClick(route)),
+	};
+};
+
+export default connect(
+	null,
+	mapDispatchToProps
+)(Login);
