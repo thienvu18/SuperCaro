@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { O, X, Empty } from '../components';
-import { CellType } from '../constants';
+import { CellTypes } from '../constants';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -28,13 +28,13 @@ export default function Cell(props) {
 
 	let img = null;
 	switch (type) {
-		case CellType.EMPTY:
+		case CellTypes.EMPTY:
 			img = <Empty index={index} />;
 			break;
-		case CellType.O:
+		case CellTypes.O:
 			img = <O className={classes.image} />;
 			break;
-		case CellType.X:
+		case CellTypes.X:
 			img = <X className={classes.image} />;
 			break;
 	}

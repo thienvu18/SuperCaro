@@ -1,4 +1,5 @@
-import CellType from './cellType';
+import CellTypes from './cellTypes';
 import GameActionTypes from './gameActionTypes';
+import PlayerTypes from './playerTypes';
 
-export { CellType, GameActionTypes };
+export { CellTypes, GameActionTypes, PlayerTypes };

@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Cell } from '../components';
-import { CellType } from '../constants';
+import { CellTypes } from '../constants';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -38,17 +38,9 @@ function Board(props) {
 	);
 }
 
-const mapStateToProps = ({}) => {
-	const board = Array(225).fill(CellType.EMPTY);
-	board[5] = CellType.X;
-	board[8] = CellType.X;
-	board[23] = CellType.X;
-	board[19] = CellType.O;
-	board[100] = CellType.O;
-	board[105] = CellType.O;
-
+const mapStateToProps = ({ game }) => {
 	return {
-		board,
+		board: game.board,
 	};
 };
 
