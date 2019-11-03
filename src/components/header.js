@@ -140,7 +140,7 @@ function Header(props) {
 	);
 }
 
-const mapstateToProps = ({ header }) => {
+const mapStateToProps = ({ header }) => {
 	return {
 		user: {
 			avatar:
@@ -149,4 +149,4 @@ const mapstateToProps = ({ header }) => {
 	};
 };
 
-export default connect(mapstateToProps)(Header);
+export default connect(mapStateToProps)(Header);

@@ -33,7 +33,7 @@ function App() {
 		<MuiThemeProvider theme={theme}>
 			<div className={classes.root}>
 				<Header />
-				<GameSelect />
+				<Game />
 				<Box mt={8}>
 					<Copyright />
 				</Box>
@@ -42,8 +42,8 @@ function App() {
 	);
 }
 
-const mapstateToProps = ({ app }) => {
+const mapStateToProps = ({ app }) => {
 	return { app };
 };
 
-export default connect(mapstateToProps)(App);
+export default connect(mapStateToProps)(App);
