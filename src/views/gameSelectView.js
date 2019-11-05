@@ -1,13 +1,9 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-	GridList,
-	GridListTile,
-	CardActionArea,
-	CardMedia,
-	Card,
-	Button,
-} from '@material-ui/core';
+import { GridList, GridListTile, Button } from '@material-ui/core';
+import { Routes } from '../constants';
+import { NavigationActions } from '../actions';
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -27,19 +23,10 @@ const useStyles = makeStyles(theme => ({
 	},
 }));
 
-const tileData = [
-	{
-		img: '../../assets/images/breakfast.jpg',
-		title: 'Play with computer',
-	},
-	{
-		img: '../../assets/images/burgers.jpg',
-		title: 'Play with friends',
-	},
-];
-
-export default function GameSelect() {
+function GameSelect(props) {
 	const classes = useStyles();
+
+	const { onClick } = props;
 
 	return (
 		<div className={classes.root}>
@@ -50,15 +37,36 @@ export default function GameSelect() {
 					cellHeight="auto"
 					spacing={20}
 				>
-					{tileData.map(tile => (
-						<GridListTile key={tile.title}>
-							<Button>
-								<img src={tile.img} width={300} />
-							</Button>
-						</GridListTile>
-					))}
+					<GridListTile key="PWC">
+						<Button onClick={() => onClick(Routes.IN_GAME)}>
+							<img
+								src="../../assets/images/breakfast.jpg"
+								width={300}
+							/>
+						</Button>
+					</GridListTile>
+					<GridListTile key="PWF">
+						<Button onClick={() => onClick(Routes.IN_GAME)}>
+							<img
+								src="../../assets/images/burgers.jpg"
+								width={300}
+							/>
+						</Button>
+					</GridListTile>
 				</GridList>
 			</div>
 		</div>
 	);
 }
+
+const mapDispatchToProps = dispatch => {
+	return {
+		onClick: route =>
+			dispatch(NavigationActions.onNavigationButtonClick(route)),
+	};
+};
+
+export default connect(
+	null,
+	mapDispatchToProps
+)(GameSelect);

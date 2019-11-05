@@ -3,6 +3,8 @@ import GameActionTypes from './gameActionTypes';
 import PlayerTypes from './playerTypes';
 import NavigationActionTypes from './navigationActionTypes';
 import Routes from './routes';
+import GameTypes from './gameTypes';
+import GameResults from './gameResults';
 
 export {
 	CellTypes,
@@ -10,4 +12,6 @@ export {
 	PlayerTypes,
 	NavigationActionTypes,
 	Routes,
+	GameTypes,
+	GameResults,
 };

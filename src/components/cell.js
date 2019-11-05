@@ -21,10 +21,11 @@ const useStyles = makeStyles(theme => ({
 
 export default function Cell(props) {
 	const classes = useStyles();
-	const { index, type } = props;
+	const { index, type, isWinCell } = props;
 
 	const top = Math.floor(index / 15) * 4;
 	const left = (index % 15) * 4;
+	const backgroundColor = isWinCell ? 'red' : 'transparent';
 
 	let img = null;
 	switch (type) {
@@ -42,7 +43,11 @@ export default function Cell(props) {
 	return (
 		<div
 			className={classes.root}
-			style={{ top: `${top}vh`, left: `${left}vh` }}
+			style={{
+				top: `${top}vh`,
+				left: `${left}vh`,
+				backgroundColor: backgroundColor,
+			}}
 		>
 			{img}
 		</div>

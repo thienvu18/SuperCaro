@@ -1,10 +1,18 @@
-import { GameActionTypes, PlayerTypes, CellTypes } from '../constants';
+import {
+	GameActionTypes,
+	PlayerTypes,
+	CellTypes,
+	GameTypes,
+	GameResults,
+} from '../constants';
 
 function makeInitState() {
 	const board = Array(225).fill(CellTypes.EMPTY);
 	return {
 		board,
+		type: GameTypes.PLAY_WITH_COMPUTER,
 		nextPlayer: PlayerTypes.PLAYER_X,
+		moveCounter: 0,
 	};
 }
 
@@ -12,19 +20,29 @@ export default function(state = makeInitState(), action) {
 	const { type, payload } = action;
 
 	switch (type) {
-		case GameActionTypes.EMPTY_CELL_CLICK: {
-			const board = [...state.board];
-			let nextPlayer;
+		case GameActionTypes.SOMEONE_PLAYED: {
+			return {
+				...state,
+				board: payload.board,
+				nextPlayer: payload.nextPlayer,
+				moveCounter: payload.moveCounter,
+			};
+		}
 
-			if (state.nextPlayer === PlayerTypes.PLAYER_O) {
-				board[payload.index] = CellTypes.O;
-				nextPlayer = PlayerTypes.PLAYER_X;
-			} else if (state.nextPlayer === PlayerTypes.PLAYER_X) {
-				board[payload.index] = CellTypes.X;
-				nextPlayer = PlayerTypes.PLAYER_O;
-			}
+		case GameActionTypes.RESULT_DRAW: {
+			return {
+				...state,
+				result: GameResults.DRAW,
+			};
+		}
 
-			return { ...state, board, nextPlayer };
+		case GameActionTypes.RESULT_WIN: {
+			return {
+				...state,
+				result: GameResults.WIN,
+				winRow: payload.winRow,
+				winner: payload.winner,
+			};
 		}
 
 		default:

@@ -1,16 +1,30 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import { GameActions } from '../actions';
+import { PlayerTypes, CellTypes } from '../constants';
 
-function Empty({ index, onClick }) {
+function Empty(props) {
+	const { index, nextPlayer, onClick, gameResult } = props;
+
 	return (
 		<div
 			style={{ width: '4vh', height: '4vh' }}
-			onClick={() => onClick(index)}
+			onClick={() => {
+				console.log(nextPlayer);
+				if (nextPlayer === PlayerTypes.PLAYER_X && !gameResult)
+					onClick(index);
+			}}
 		/>
 	);
 }
+
+const mapStateToProps = ({ game }) => {
+	return {
+		nextPlayer: game.nextPlayer,
+		gameResult: game.result,
+	};
+};
 
 const mapDispatchToProps = dispatch => {
 	return {
@@ -19,6 +33,6 @@ const mapDispatchToProps = dispatch => {
 };
 
 export default connect(
-	null,
+	mapStateToProps,
 	mapDispatchToProps
 )(Empty);

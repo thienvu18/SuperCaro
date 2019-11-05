@@ -1,9 +1,19 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
 import { Cell } from '../components';
-import { CellTypes } from '../constants';
+import { PlayerTypes, GameTypes, CellTypes, GameResults } from '../constants';
+import { GameActions } from '../actions';
+
+function getNextPlay(board) {
+	let next = -1;
+	do {
+		next = Math.round(Math.random() * 224);
+	} while (board[next] !== CellTypes.EMPTY);
+
+	return next;
+}
 
 const useStyles = makeStyles(theme => ({
 	root: {
@@ -24,14 +34,29 @@ const useStyles = makeStyles(theme => ({
 }));
 
 function Board(props) {
+	const { board, gameType, nextPlayer, onClick, result, winRow } = props;
 	const classes = useStyles();
-	const { board } = props;
+
+	useEffect(() => {
+		if (nextPlayer === PlayerTypes.PLAYER_O) {
+			if (gameType === GameTypes.PLAY_WITH_COMPUTER) {
+				const nextMove = getNextPlay(board);
+				console.log(nextMove);
+				onClick(nextMove);
+			}
+		}
+	});
 
 	return (
 		<div className={classes.root}>
 			<div className={classes.board}>
 				{board.map((type, index) => (
-					<Cell key={`board_${index}`} index={index} type={type} />
+					<Cell
+						key={`board_${index}`}
+						index={index}
+						type={type}
+						isWinCell={winRow && winRow.includes(index)}
+					/>
 				))}
 			</div>
 		</div>
@@ -41,7 +66,20 @@ function Board(props) {
 const mapStateToProps = ({ game }) => {
 	return {
 		board: game.board,
+		gameType: game.type,
+		nextPlayer: game.nextPlayer,
+		result: game.result,
+		winRow: game.winRow,
 	};
 };
 
-export default connect(mapStateToProps)(Board);
+const mapDispatchToProps = dispatch => {
+	return {
+		onClick: index => dispatch(GameActions.emptyCellClick(index)),
+	};
+};
+
+export default connect(
+	mapStateToProps,
+	mapDispatchToProps
+)(Board);

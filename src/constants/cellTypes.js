@@ -1,5 +1,5 @@
 export default {
-	O: 1,
-	X: 2,
-	EMPTY: 0,
+	O: 'o',
+	X: 'x',
+	EMPTY: 'e',
 };
