@@ -5,6 +5,9 @@ import NavigationActionTypes from './navigationActionTypes';
 import Routes from './routes';
 import GameTypes from './gameTypes';
 import GameResults from './gameResults';
+import AuthActionTypes from './authActionTypes';
+import AuthStatuses from './authStatuses';
+import ResetActionTypes from './resetActionTypes';
 
 export {
 	CellTypes,
@@ -14,4 +17,7 @@ export {
 	Routes,
 	GameTypes,
 	GameResults,
+	AuthActionTypes,
+	AuthStatuses,
+	ResetActionTypes,
 };

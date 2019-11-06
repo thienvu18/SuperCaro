@@ -1,10 +1,6 @@
 import { NavigationActionTypes, Routes } from '../constants';
 
-function makeInitState() {
-	return Routes.LOGIN;
-}
-
-export default function(state = makeInitState(), action) {
+export default function(state = Routes.LOGIN, action) {
 	const { type } = action;
 
 	switch (type) {

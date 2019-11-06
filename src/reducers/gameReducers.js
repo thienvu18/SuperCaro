@@ -1,22 +1,6 @@
-import {
-	GameActionTypes,
-	PlayerTypes,
-	CellTypes,
-	GameTypes,
-	GameResults,
-} from '../constants';
+import { GameActionTypes, GameResults } from '../constants';
 
-function makeInitState() {
-	const board = Array(225).fill(CellTypes.EMPTY);
-	return {
-		board,
-		type: GameTypes.PLAY_WITH_COMPUTER,
-		nextPlayer: PlayerTypes.PLAYER_X,
-		moveCounter: 0,
-	};
-}
-
-export default function(state = makeInitState(), action) {
+export default function(state = {}, action) {
 	const { type, payload } = action;
 
 	switch (type) {

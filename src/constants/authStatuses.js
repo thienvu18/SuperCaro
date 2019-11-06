@@ -1,0 +1,9 @@
+export default {
+	REGISTERING: 0,
+	REGISTERED: 1,
+	REGISTER_FAIL: 2,
+
+	LOGGING: 3,
+	LOGGED: 4,
+	LOGGING_FAIL: 5,
+};
