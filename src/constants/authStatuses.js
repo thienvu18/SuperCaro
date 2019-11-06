@@ -5,5 +5,9 @@ export default {
 
 	LOGGING: 3,
 	LOGGED: 4,
-	LOGGING_FAIL: 5,
+	LOGIN_FAIL: 5,
+
+	UPDATING: 6,
+	UPDATED: 7,
+	UPDATE_FAIL: 8,
 };

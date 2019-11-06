@@ -3,9 +3,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
+import { persistStore, persistReducer } from 'redux-persist';
+import { PersistGate } from 'redux-persist/lib/integration/react';
+import storage from 'redux-persist/lib/storage';
+import autoMergeLevel2 from 'redux-persist/lib/stateReconciler/autoMergeLevel2';
 import thunk from 'redux-thunk';
 import logger from 'redux-logger';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import dotenv from 'dotenv';
 
 import App from './app';
 import reducers from './reducers';
@@ -16,6 +21,9 @@ import {
 	CellTypes,
 	ResetActionTypes,
 } from './constants';
+import { Loading } from './views';
+
+dotenv.config();
 
 const initState = {
 	auth: {
@@ -29,7 +37,6 @@ const initState = {
 	},
 	route: Routes.LOGIN,
 };
-
 const rootReducer = (state = initState, action) => {
 	if (action.type === ResetActionTypes.RESET_REGISTER) {
 		return reducers({ ...state, auth: initState.auth }, action);
@@ -37,17 +44,21 @@ const rootReducer = (state = initState, action) => {
 
 	return reducers(state, action);
 };
-
-const store = createStore(
-	rootReducer,
-	initState,
-	applyMiddleware(thunk, logger)
-);
+const persistConfig = {
+	key: 'root',
+	storage: storage,
+	stateReconciler: autoMergeLevel2,
+};
+const pReducer = persistReducer(persistConfig, rootReducer);
+const store = createStore(pReducer, initState, applyMiddleware(thunk, logger));
+const persistor = persistStore(store);
 
 ReactDOM.render(
 	<Provider store={store}>
 		<CssBaseline />
-		<App />
+		<PersistGate loading={<Loading />} persistor={persistor}>
+			<App />
+		</PersistGate>
 	</Provider>,
 	document.getElementById('container')
 );
